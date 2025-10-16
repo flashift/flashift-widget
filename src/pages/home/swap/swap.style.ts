@@ -3,11 +3,16 @@ import type { SxProps } from "@mui/material";
 export const wrapperMain: SxProps = {
   display: "flex",
   justifyContent: "center",
-  alignItems: "flex-start",
   flexWrap: "wrap",
-  overflowY: "hidden",
-  height: "calc(100vh - 149px)",
   padding: "65px 10px",
+  "& .swap_button": {
+    width: "100px",
+    marginLeft: "13px",
+    marginTop: "20px",
+    borderRadius: "8px",
+    fontSize: "1.35rem",
+    fontWeight: "700",
+  },
   ".all_fees": {
     color: "#FF9800",
     fontSize: "1.3rem",
@@ -17,62 +22,32 @@ export const wrapperMain: SxProps = {
     color: "rgba(255,255,255,0.4)",
     fontSize: "1.34rem",
   },
-  "&>div:first-of-type": {
-    borderRadius: "8px 0 0 8px",
-    width: "488px",
-    maxWidth: "100%",
-    marginBottom: "50px",
-  },
-  "@media (max-width: 1200px)": {
-    overflowY: "scroll",
-  },
-  "@media (max-width: 1006px)": {
-    padding: "48px 10px",
-    height: "calc(100vh - 120px)",
-    width: "100vw",
-    display: "inline-block",
-    ".rate": {
-      marginBottom: "0",
-      paddingTop: "0",
-      paddingBottom: "0",
-      "&>div": {
-        padding: "0",
-      },
-      "&>p": {
-        paddingTop: "8px",
-      },
-    },
-    "&>div:first-of-type": {
-      borderRadius: "8px 0 8px 8px",
-    },
-    "&>div": {
-      margin: "0 auto",
-    },
+  "@media (max-width: 998px)": {
     "& .swap_button": {
-      position: "fixed",
-      left: "0",
-      bottom: "20px",
-      zIndex: "10",
-      right: "0",
-      width: "100%",
-      borderRadius: "8px",
-      padding: "25px 5px",
-      fontSize: "1.35rem",
-      fontWeight: "700",
+      margin: "0 auto",
+      marginTop: "20px",
     },
-  },
-  "@media (max-width: 900px)": {
-    padding: "48px 10px",
   },
 };
 
 export const wrapperSwap: SxProps = {
+  width: "950px",
+  maxWidth: "100%",
+  "&>div": {
+    display: "flex",
+    justifyContent: "space-between",
+  },
   "& h4": {
     fontWeight: "700",
     fontSize: "1.7rem",
   },
   "& img": {
     borderRadius: "50%",
+  },
+  "@media (max-width: 998px)": {
+    "&>div": {
+      flexWrap: "wrap",
+    },
   },
 };
 
@@ -91,25 +66,26 @@ export const wrapperSwapItem: SxProps = {
   padding: "10px 15px",
   position: "relative",
   borderRadius: "8px",
+  flex: "1 0 40%",
   "& span": {
     fontSize: "1.1rem",
     position: "absolute",
     top: "-13px",
-    background: "#333d6b",
+    background: "#1a2233",
     padding: "0 5px",
   },
+  "@media (max-width: 998px)": { flex: "1 0 100%", marginBottom: "0" },
 };
 
 export const wrapperChange: SxProps = {
-  position: "absolute",
-  top: "115px",
-  width: "94%",
-  textAlign: "center",
+  display: "flex",
+  justifyContent: "center",
+  height: "76px",
   "& img": {
     zIndex: 1,
   },
-  "@media (max-width: 520px)": {
-    top: "173px",
+  "@media (max-width: 998px)": {
+    flex: "1 0 100%",
   },
 };
 

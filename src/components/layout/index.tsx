@@ -1,7 +1,6 @@
 "use client";
 
 import Grid from "@mui/material/Grid";
-import { wrapperMain } from "./layout.style";
 import type { FC } from "react";
 
 interface IProps {
@@ -10,7 +9,7 @@ interface IProps {
 
 const Layout: FC<IProps> = ({ children }) => {
   return (
-    <Grid sx={wrapperMain}>
+    <Grid>
       <Grid>{children}</Grid>
     </Grid>
   );

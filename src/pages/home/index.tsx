@@ -54,26 +54,28 @@ const Home = () => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("symbol_from", coinData[1]?.symbol);
     searchParams.set("symbol_to", coinData[0]?.symbol);
+
     const networkFrom =
       net.find((item) => item?.name === coinData[1]?.network)?.name || "";
     const networkTo =
       net.find((item) => item?.name === coinData[0]?.network)?.name || "";
+
     searchParams.set("network_from", networkFrom);
     searchParams.set("network_to", networkTo);
+
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
     });
-    dispatch(setToCoinSelectData(coinData[0]));
-    dispatch(setFromCoinSelectData(coinData[1]));
-    dispatch(setNetIconFromData(netIconTo));
-    dispatch(setNetIconToData(netIconFrom));
+
+    // dispatch(setToCoinSelectData(coinData[0]));
+    // dispatch(setFromCoinSelectData(coinData[1]));
+    // dispatch(setNetIconFromData(netIconTo));
+    // dispatch(setNetIconToData(netIconFrom));
 
     if (fromValueData) {
       setLoading(true);
       setActive(0);
       dispatch(setExchangeResData());
-    } else {
-      return false;
     }
   };
 

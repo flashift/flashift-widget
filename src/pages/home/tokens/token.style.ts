@@ -65,7 +65,7 @@ export const wrapperInput: SxProps = {
     top: "-11px",
     left: "12px",
     fontSize: "1.1rem",
-    background: "#333d6b",
+    background: "#1a2233",
     zIndex: "1",
     padding: "0 5px",
   },

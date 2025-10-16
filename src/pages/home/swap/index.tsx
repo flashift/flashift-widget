@@ -1,8 +1,7 @@
-import { IconButton, Typography, useMediaQuery } from "@mui/material";
+import { Button, IconButton, Typography, useMediaQuery } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { useState, type FC } from "react";
 import CustomCard from "../../../components/card";
-import IconsAction from "./components/iconsAction";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import net from "../../../data/network.json";
 import {
@@ -17,11 +16,12 @@ import useAppSelector from "../../../hooks/useSelector";
 import useAppDispatch from "../../../hooks/useDispatch";
 import { setFromValueData } from "../../../redux/slices/coinFromValueSlice";
 import { setExchangeResData } from "../../../redux/slices/exchangeResSlice";
+
 import {
   setNetIconFromData,
   setNetIconToData,
 } from "../../../redux/slices/netIconSlice";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { baseImageUrl } from "../../../config/imageUrl";
 
@@ -51,14 +51,9 @@ interface IProps {
 const Swap: FC<IProps> = ({
   setSwitch,
   setCoinType,
-
   setLoading,
-
   handleChange,
-
   setActive,
-
-  loadingSkeleton,
 }) => {
   const [fromValue, setFromValue] = useState("");
 
@@ -67,6 +62,7 @@ const Swap: FC<IProps> = ({
   const { netIconFrom } = useAppSelector((state) => state.netIcon);
   const { netIconTo } = useAppSelector((state) => state.netIcon);
 
+  const exchangeResData = useAppSelector((state) => state.exchangeRes);
   const isMobileActive = useMediaQuery("(max-width: 1006px)");
   const location = useLocation();
   const navigate = useNavigate();
@@ -74,8 +70,6 @@ const Swap: FC<IProps> = ({
   const fromValueData = useAppSelector(
     (state) => state.coinFromValue.fromValue
   );
-
-  const exchangeResData = useAppSelector((state) => state.exchangeRes);
 
   const handleSwap = (id: number) => {
     setSwitch(2);
@@ -106,22 +100,29 @@ const Swap: FC<IProps> = ({
     }
   };
 
+  const handleExchange = () => {
+    window.open(
+      `https://exchange.flashift.app/?symbol_to=${coinData[1]?.symbol}&network_to=${coinData[1]?.network}&symbol_from=${coinData[0]?.symbol}&network_from=${coinData[0]?.network}&amount=${fromValueData}
+`,
+      "_blank"
+    );
+  };
+
   return (
-    <>
-      <Grid sx={wrapperMain}>
-        <CustomCard>
-          <Grid sx={wrapperSwap}>
-            <IconsAction setSwitch={setSwitch} />
-            <Typography variant="h4" mb={2}>
-              Swap
-            </Typography>
+    <Grid sx={wrapperMain}>
+      <CustomCard>
+        <Grid sx={wrapperSwap}>
+          <Typography variant="h4" mb={4}>
+            Exchange Crypto
+          </Typography>
+          <Grid>
             <Grid sx={wrapperSwapItem} mb={2}>
               <span>From</span>
               <Grid container sx={wrapperSwapInfo} gap={2}>
                 <Grid
                   sx={{
                     background: (theme) => theme?.palette?.secondary?.light,
-                    minWidth: "190px",
+                    minWidth: "160px",
                     cursor: "pointer",
                   }}
                   onClick={() => handleSwap(1)}
@@ -200,7 +201,7 @@ const Swap: FC<IProps> = ({
                 <Grid
                   sx={{
                     background: (theme) => theme?.palette?.secondary?.light,
-                    minWidth: "190px",
+                    minWidth: "160px",
                     cursor: "pointer",
                   }}
                   onClick={() => handleSwap(2)}
@@ -255,43 +256,37 @@ const Swap: FC<IProps> = ({
                   </Grid>
                   <ExpandMoreIcon />
                 </Grid>
+                <Grid>
+                  <input
+                    value={
+                      exchangeResData?.exchangeRes &&
+                      ((fromValue && fromValue !== "0") ||
+                        (fromValueData && fromValueData !== "0")) &&
+                      !!exchangeResData?.exchangeRes?.max_amount &&
+                      exchangeResData?.exchangeRes?.max_amount !== "-1"
+                        ? exchangeResData?.exchangeRes?.data?.[0]?.amount.toFixed(
+                            5
+                          )
+                        : ""
+                    }
+                    type="text"
+                    readOnly
+                  />
+                </Grid>
               </Grid>
             </Grid>
-            {!loadingSkeleton &&
-              exchangeResData &&
-              exchangeResData?.exchangeRes?.data &&
-              exchangeResData?.exchangeRes?.data.length > 0 && (
-                <Grid
-                  sx={{
-                    background: (theme) => theme?.palette?.secondary?.light,
-                    fontSize: "1.2rem",
-                    borderRadius: "8px",
-                    justifyContent: "space-between",
-                  }}
-                  className="rate animate__animated animate__fadeIn"
-                  p={1}
-                  mb={2}
-                  container
-                >
-                  <Grid className="all_fees" container>
-                    <ErrorOutlineIcon style={{ width: "17px" }} />
-                    <span
-                      style={{
-                        position: "relative",
-                        top: "-2.5px",
-                        marginLeft: "3px",
-                      }}
-                    >
-                      All Fees Included
-                    </span>
-                  </Grid>
-                </Grid>
-              )}
+            <Button
+              variant="contained"
+              fullWidth
+              onClick={handleExchange}
+              className="swap_button"
+            >
+              Exchange
+            </Button>
           </Grid>
-        </CustomCard>
-      </Grid>
-      )
-    </>
+        </Grid>
+      </CustomCard>
+    </Grid>
   );
 };
 export default Swap;
