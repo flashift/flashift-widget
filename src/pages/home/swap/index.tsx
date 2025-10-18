@@ -7,6 +7,7 @@ import net from "../../../data/network.json";
 import {
   wrapperChange,
   wrapperCoin,
+  wrapperLoading,
   wrapperMain,
   wrapperSwap,
   wrapperSwapInfo,
@@ -44,13 +45,13 @@ interface IProps {
   price: any;
   setPrice: any;
   timer: any;
-  loadingSkeleton: boolean;
   errorMessage: boolean;
 }
 
 const Swap: FC<IProps> = ({
   setSwitch,
   setCoinType,
+  loading,
   setLoading,
   handleChange,
   setActive,
@@ -102,7 +103,7 @@ const Swap: FC<IProps> = ({
 
   const handleExchange = () => {
     window.open(
-      `https://exchange.flashift.app/?symbol_to=${coinData[1]?.symbol}&network_to=${coinData[1]?.network}&symbol_from=${coinData[0]?.symbol}&network_from=${coinData[0]?.network}&amount=${fromValueData}
+      `https://exchangev3.flashift.app/?symbol_to=${coinData[1]?.symbol}&network_to=${coinData[1]?.network}&symbol_from=${coinData[0]?.symbol}&network_from=${coinData[0]?.network}&amount=${fromValueData}
 `,
       "_blank"
     );
@@ -256,7 +257,7 @@ const Swap: FC<IProps> = ({
                   </Grid>
                   <ExpandMoreIcon />
                 </Grid>
-                <Grid>
+                <Grid sx={wrapperLoading}>
                   <input
                     value={
                       exchangeResData?.exchangeRes &&
@@ -272,6 +273,11 @@ const Swap: FC<IProps> = ({
                     type="text"
                     readOnly
                   />
+                  {loading && (
+                    <div>
+                      <div className="loader"></div>
+                    </div>
+                  )}
                 </Grid>
               </Grid>
             </Grid>

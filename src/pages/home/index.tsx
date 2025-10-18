@@ -11,10 +11,6 @@ import { setExchangeResData } from "../../redux/slices/exchangeResSlice";
 import Swap from "./swap";
 import Tokens from "./tokens";
 import { baseUrl } from "../../config/url";
-import {
-  setNetIconFromData,
-  setNetIconToData,
-} from "../../redux/slices/netIconSlice";
 import net from "../../data/network.json";
 
 import { debounce } from "lodash";
@@ -28,7 +24,7 @@ const Home = () => {
   const navigate = useNavigate();
   const [swith, setSwitch] = useState(1);
   const [coinType, setCoinType] = useState<number>();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [swapDetail, setSwapDetail] = useState(false);
   const [active, setActive] = useState<number>(0);
   const controllerRef = useRef<AbortController | null>(null);
@@ -47,7 +43,6 @@ const Home = () => {
   );
 
   const [errorMessage, setErrorMessage] = useState(false);
-  const [loadingSkeleton, setLoadingSkeleton] = useState(false);
   const [timer, setTimer] = useState<number>(0);
 
   const handleChange = () => {
@@ -67,11 +62,6 @@ const Home = () => {
       replace: true,
     });
 
-    // dispatch(setToCoinSelectData(coinData[0]));
-    // dispatch(setFromCoinSelectData(coinData[1]));
-    // dispatch(setNetIconFromData(netIconTo));
-    // dispatch(setNetIconToData(netIconFrom));
-
     if (fromValueData) {
       setLoading(true);
       setActive(0);
@@ -88,7 +78,6 @@ const Home = () => {
       controllerRef.current.abort();
     }
     controllerRef.current = new AbortController();
-    setLoadingSkeleton(true);
     setErrorMessage(false);
 
     const searchParams = new URLSearchParams(location.search);
@@ -125,7 +114,7 @@ const Home = () => {
       dispatch(setFromValueData(search_amount));
     }
 
-    if (fromValueData && Number(fromValueData) > 0) {
+    if (fromValueData && fromValueData !== "0" && Number(fromValueData) > 0) {
       const params = {
         symbol_from: search_symbol_from
           ? search_symbol_from
@@ -169,13 +158,11 @@ const Home = () => {
             dispatch(setExchangeResData(response?.data));
           }
           setLoading(false);
-          setLoadingSkeleton(false);
           if (response?.data?.message !== "OK") {
             setErrorMessage(true);
           }
         })
         .catch((error) => {
-          setLoadingSkeleton(false);
           if (axios.isCancel(error)) {
             console.log("Previous request canceled");
           } else if (error.name === "CanceledError") {
@@ -225,14 +212,12 @@ const Home = () => {
   const startTimer = useCallback(() => {
     let currentProgress = 0;
     setTimer(0);
-    setLoadingSkeleton(true);
     const progressInterval = setInterval(() => {
       currentProgress += 100 / 60;
       setTimer(currentProgress);
 
       if (currentProgress >= 100) {
         clearInterval(progressInterval);
-        setLoadingSkeleton(true);
       }
     }, 1000);
 
@@ -293,7 +278,6 @@ const Home = () => {
           price={price}
           setPrice={setPrice}
           timer={timer}
-          loadingSkeleton={loadingSkeleton}
           errorMessage={errorMessage}
         />
       )}

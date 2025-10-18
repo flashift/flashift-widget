@@ -132,3 +132,22 @@ export const wrapperCoin: SxProps = {
     opacity: "0.7",
   },
 };
+
+export const wrapperLoading: SxProps = {
+  "& .loader": {
+    border: "2px solid #f3f3f3",
+    borderTop: "2px solid #3498db",
+    borderRadius: "50%",
+    width: "30px",
+    height: "30px",
+    animation: "spin 0.8s linear infinite",
+    position: "absolute",
+    right: "20px",
+    top: "25px",
+  },
+
+  "@keyframes spin": {
+    from: { transform: "rotate(0deg)" },
+    to: { transform: "rotate(360deg)" },
+  },
+};
