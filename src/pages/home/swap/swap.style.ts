@@ -83,9 +83,13 @@ export const wrapperChange: SxProps = {
   height: "76px",
   "& img": {
     zIndex: 1,
+    transform: "rotate(90deg)",
   },
   "@media (max-width: 998px)": {
     flex: "1 0 100%",
+    "& img": {
+      transform: "rotate(0deg)",
+    },
   },
 };
 
