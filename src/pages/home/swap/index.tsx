@@ -17,7 +17,7 @@ import useAppSelector from "../../../hooks/useSelector";
 import useAppDispatch from "../../../hooks/useDispatch";
 import { setFromValueData } from "../../../redux/slices/coinFromValueSlice";
 import { setExchangeResData } from "../../../redux/slices/exchangeResSlice";
-
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import {
   setNetIconFromData,
   setNetIconToData,
@@ -29,21 +29,11 @@ import { baseImageUrl } from "../../../config/imageUrl";
 interface IProps {
   loading: boolean;
   setLoading: (loading: boolean) => void;
-  swapDetail: boolean;
   setSwapDetail: (swapDetail: boolean) => void;
   handleChange: any;
-  active: number;
   setActive: (active: number) => void;
-  showWallet: boolean;
-  setShowWallet: (showWallet: boolean) => void;
-  confirm: boolean;
-  setConfirm: (confirm: boolean) => void;
-  historyRequestId: string;
-  setHistoryRequestId: (historyRequestId: string) => void;
-  price: any;
-  setPrice: any;
   timer: any;
-  errorMessage: boolean;
+  price: any;
 }
 
 const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
@@ -53,7 +43,7 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
   const { coinData } = useAppSelector((state) => state.coinSelect);
   const { netIconFrom } = useAppSelector((state) => state.netIcon);
   const { netIconTo } = useAppSelector((state) => state.netIcon);
-
+  const [rateChange, setRateChange] = useState(true);
   const exchangeResData = useAppSelector((state) => state.exchangeRes);
   const isMobileActive = useMediaQuery("(max-width: 1006px)");
   const location = useLocation();
@@ -92,6 +82,10 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
 `,
       "_blank"
     );
+  };
+
+  const handleRateChange = () => {
+    setRateChange(!rateChange);
   };
 
   return (
@@ -276,6 +270,87 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
               Exchange
             </Button>
           </Grid>
+          {!loading &&
+            exchangeResData &&
+            exchangeResData?.exchangeRes?.data &&
+            exchangeResData?.exchangeRes?.data.length > 0 && (
+              <Grid
+                sx={{
+                  fontSize: "1.2rem",
+                  justifyContent: "left",
+                }}
+                className="animate__animated animate__fadeIn"
+                container
+              >
+                <Grid>
+                  {rateChange ? (
+                    <>
+                      {" "}
+                      1 {coinData[0]?.symbol.toUpperCase()}
+                      <IconButton onClick={handleRateChange}>
+                        <img
+                          src="./assets/images/swap/rateChange.svg"
+                          alt="flashift"
+                          style={{ transform: "rotate(90deg)" }}
+                        />
+                      </IconButton>
+                      {""}
+                      {(
+                        Number(exchangeResData?.exchangeRes?.max_amount) /
+                        Number(fromValueData)
+                      ).toFixed(8) === "0.00000000"
+                        ? (
+                            Number(exchangeResData?.exchangeRes?.max_amount) /
+                            Number(fromValueData)
+                          ).toFixed(16)
+                        : (
+                            Number(exchangeResData?.exchangeRes?.max_amount) /
+                            Number(fromValueData)
+                          ).toFixed(8)}
+                      {""} {coinData[1]?.symbol.toUpperCase()}
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      1 {coinData[1]?.symbol.toUpperCase()}
+                      <IconButton onClick={handleRateChange}>
+                        <img
+                          src="./assets/images/swap/rateChange.svg"
+                          alt="flashift"
+                          style={{ transform: "rotate(90deg)" }}
+                        />
+                      </IconButton>
+                      {""}
+                      {(
+                        Number(fromValueData) /
+                        Number(exchangeResData?.exchangeRes?.max_amount)
+                      ).toFixed(8) === "0.00000000"
+                        ? (
+                            Number(fromValueData) /
+                            Number(exchangeResData?.exchangeRes?.max_amount)
+                          ).toFixed(16)
+                        : (
+                            Number(fromValueData) /
+                            Number(exchangeResData?.exchangeRes?.max_amount)
+                          ).toFixed(8)}
+                      {""} {coinData[0]?.symbol.toUpperCase()}
+                    </>
+                  )}
+                </Grid>
+                <Grid className="all_fees" container>
+                  <ErrorOutlineIcon style={{ width: "17px" }} />
+                  <span
+                    style={{
+                      position: "relative",
+                      top: "-2.5px",
+                      marginLeft: "3px",
+                    }}
+                  >
+                    All Fees Included
+                  </span>
+                </Grid>
+              </Grid>
+            )}
         </Grid>
       </CustomCard>
     </Grid>

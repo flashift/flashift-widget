@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Layout from "../../components/layout";
 import useAppDispatch from "../../hooks/useDispatch";
@@ -17,6 +17,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { setFromValueData } from "../../redux/slices/coinFromValueSlice";
 import coins from "../../data/coinList.json";
 import { baseImageUrl } from "../../config/imageUrl";
+import { useMutation } from "@tanstack/react-query";
+import { priceService } from "../../services/price";
 
 const Home = () => {
   const location = useLocation();
@@ -29,19 +31,17 @@ const Home = () => {
   const { coinData } = useAppSelector((state) => state.coinSelect);
   const { netIconFrom } = useAppSelector((state) => state.netIcon);
   const { netIconTo } = useAppSelector((state) => state.netIcon);
-  const [showWallet, setShowWallet] = useState<boolean>(false);
-  const [confirm, setConfirm] = useState<boolean>(false);
-  const [historyRequestId, setHistoryRequestId] = useState<string>("");
   const [price, setPrice] = useState<any>();
   const activeRef = useRef(active);
+
+  const priceQuery = useMutation({
+    mutationFn: priceService,
+  });
 
   const fromValueData = useAppSelector(
     (state) => state.coinFromValue.fromValue
   );
-
-  const [errorMessage, setErrorMessage] = useState(false);
   const [timer, setTimer] = useState<number>(0);
-
   const handleChange = () => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("symbol_from", coinData[1]?.symbol);
@@ -64,6 +64,33 @@ const Home = () => {
       setActive(0);
       dispatch(setExchangeResData());
     }
+    priceQuery.mutate(coinData?.[0]?.uuid, {
+      onSuccess: (data) => {
+        const currentPrice = data?.data?.currentPrice;
+        if (typeof currentPrice === "string") {
+          const numericPrice = parseFloat(currentPrice);
+
+          if (!isNaN(numericPrice)) {
+            setPrice(numericPrice.toFixed(2));
+          } else {
+            console.error(
+              "Error: currentPrice cannot be converted to a valid number."
+            );
+          }
+        } else {
+          console.error("Error: currentPrice is not a string.");
+        }
+      },
+      onError: (error) => {
+        console.error("Error:", error);
+        const axiosError = error as AxiosError;
+        if (axiosError.response?.status === 403) {
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        }
+      },
+    });
   };
 
   useEffect(() => {
@@ -75,8 +102,6 @@ const Home = () => {
       controllerRef.current.abort();
     }
     controllerRef.current = new AbortController();
-    setErrorMessage(false);
-
     const searchParams = new URLSearchParams(location.search);
     const search_symbol_from = searchParams.get("symbol_from");
     const search_network_from = searchParams.get("network_from");
@@ -156,7 +181,6 @@ const Home = () => {
           }
           setLoading(false);
           if (response?.data?.message !== "OK") {
-            setErrorMessage(true);
           }
         })
         .catch((error) => {
@@ -212,7 +236,6 @@ const Home = () => {
     const progressInterval = setInterval(() => {
       currentProgress += 100 / 60;
       setTimer(currentProgress);
-
       if (currentProgress >= 100) {
         clearInterval(progressInterval);
       }
@@ -253,26 +276,57 @@ const Home = () => {
     };
   }, [debouncedFullExchange, swapDetail, startTimer]);
 
+  const handlePrice = useCallback(
+    debounce(() => {
+      if (fromValueData && Number(fromValueData) > 0) {
+        priceQuery.mutate(coinData?.[1]?.uuid, {
+          onSuccess: (data) => {
+            const currentPrice = data?.data?.currentPrice;
+            if (typeof currentPrice === "string") {
+              const numericPrice = parseFloat(currentPrice);
+              if (!isNaN(numericPrice)) {
+                setPrice(numericPrice.toFixed(2));
+              } else {
+                console.error(
+                  "Error: currentPrice cannot be converted to a valid number."
+                );
+              }
+            } else {
+              console.error("Error: currentPrice is not a string.");
+            }
+          },
+          onError: (error) => {
+            console.error("Error:", error);
+            const axiosError = error as AxiosError;
+            if (axiosError.response?.status === 403) {
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
+            }
+          },
+        });
+      }
+    }, 700),
+    [fromValueData, priceQuery, coinData]
+  );
+
+  useEffect(() => {
+    handlePrice();
+    return () => {
+      handlePrice.cancel();
+    };
+  }, [fromValueData]);
+
   return (
     <Layout>
       <Swap
         loading={loading}
         setLoading={setLoading}
-        swapDetail={swapDetail}
-        setSwapDetail={setSwapDetail}
         handleChange={handleChange}
+        setSwapDetail={setSwapDetail}
         setActive={setActive}
-        active={active}
-        showWallet={showWallet}
-        setShowWallet={setShowWallet}
-        confirm={confirm}
-        setConfirm={setConfirm}
-        historyRequestId={historyRequestId}
-        setHistoryRequestId={setHistoryRequestId}
-        price={price}
-        setPrice={setPrice}
         timer={timer}
-        errorMessage={errorMessage}
+        price={price}
       />
     </Layout>
   );

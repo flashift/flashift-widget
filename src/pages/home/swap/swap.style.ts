@@ -16,7 +16,9 @@ export const wrapperMain: SxProps = {
   ".all_fees": {
     color: "#FF9800",
     fontSize: "1.3rem",
-    width: "100%",
+    position: "relative",
+    top: "7px",
+    left: "10px",
   },
   "input::placeholder": {
     color: "rgba(255,255,255,0.4)",
@@ -35,7 +37,6 @@ export const wrapperSwap: SxProps = {
   maxWidth: "100%",
   "&>div": {
     display: "flex",
-    justifyContent: "space-between",
   },
   "& h6": {
     fontWeight: "700",
