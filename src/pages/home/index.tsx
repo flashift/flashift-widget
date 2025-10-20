@@ -9,7 +9,6 @@ import {
 } from "../../redux/slices/coinSelectSlice";
 import { setExchangeResData } from "../../redux/slices/exchangeResSlice";
 import Swap from "./swap";
-import Tokens from "./tokens";
 import { baseUrl } from "../../config/url";
 import net from "../../data/network.json";
 
@@ -22,8 +21,6 @@ import { baseImageUrl } from "../../config/imageUrl";
 const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [swith, setSwitch] = useState(1);
-  const [coinType, setCoinType] = useState<number>();
   const [loading, setLoading] = useState(false);
   const [swapDetail, setSwapDetail] = useState(false);
   const [active, setActive] = useState<number>(0);
@@ -258,38 +255,25 @@ const Home = () => {
 
   return (
     <Layout>
-      {swith === 1 && (
-        <Swap
-          setSwitch={setSwitch}
-          setCoinType={setCoinType}
-          loading={loading}
-          setLoading={setLoading}
-          swapDetail={swapDetail}
-          setSwapDetail={setSwapDetail}
-          handleChange={handleChange}
-          setActive={setActive}
-          active={active}
-          showWallet={showWallet}
-          setShowWallet={setShowWallet}
-          confirm={confirm}
-          setConfirm={setConfirm}
-          historyRequestId={historyRequestId}
-          setHistoryRequestId={setHistoryRequestId}
-          price={price}
-          setPrice={setPrice}
-          timer={timer}
-          errorMessage={errorMessage}
-        />
-      )}
-      {swith === 2 && (
-        <Tokens
-          setActive={setActive}
-          setSwitch={setSwitch}
-          coinType={coinType}
-          setLoading={setLoading}
-          setPrice={setPrice}
-        />
-      )}
+      <Swap
+        loading={loading}
+        setLoading={setLoading}
+        swapDetail={swapDetail}
+        setSwapDetail={setSwapDetail}
+        handleChange={handleChange}
+        setActive={setActive}
+        active={active}
+        showWallet={showWallet}
+        setShowWallet={setShowWallet}
+        confirm={confirm}
+        setConfirm={setConfirm}
+        historyRequestId={historyRequestId}
+        setHistoryRequestId={setHistoryRequestId}
+        price={price}
+        setPrice={setPrice}
+        timer={timer}
+        errorMessage={errorMessage}
+      />
     </Layout>
   );
 };

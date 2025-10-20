@@ -27,8 +27,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { baseImageUrl } from "../../../config/imageUrl";
 
 interface IProps {
-  setSwitch: (arg0: number) => void;
-  setCoinType: (arg0: number | undefined) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
   swapDetail: boolean;
@@ -48,14 +46,7 @@ interface IProps {
   errorMessage: boolean;
 }
 
-const Swap: FC<IProps> = ({
-  setSwitch,
-  setCoinType,
-  loading,
-  setLoading,
-  handleChange,
-  setActive,
-}) => {
+const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
   const [fromValue, setFromValue] = useState("");
 
   const dispatch = useAppDispatch();
@@ -72,15 +63,9 @@ const Swap: FC<IProps> = ({
     (state) => state.coinFromValue.fromValue
   );
 
-  const handleSwap = (id: number) => {
-    setSwitch(2);
+  const handleSwap = () => {
     dispatch(setNetIconFromData(""));
     dispatch(setNetIconToData(""));
-    if (id === 1) {
-      setCoinType(1);
-    } else if (id === 2) {
-      setCoinType(2);
-    }
   };
 
   const handleFromValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,7 +111,7 @@ const Swap: FC<IProps> = ({
                     minWidth: "160px",
                     cursor: "pointer",
                   }}
-                  onClick={() => handleSwap(1)}
+                  onClick={() => handleSwap()}
                 >
                   <Grid container pr={3}>
                     <Grid mr={1} style={{ position: "relative" }}>
@@ -205,7 +190,7 @@ const Swap: FC<IProps> = ({
                     minWidth: "160px",
                     cursor: "pointer",
                   }}
-                  onClick={() => handleSwap(2)}
+                  onClick={() => handleSwap()}
                 >
                   <Grid container pr={3}>
                     <Grid mr={1} style={{ position: "relative" }}>
