@@ -37,11 +37,17 @@ export const wrapperSwap: SxProps = {
     display: "flex",
     justifyContent: "space-between",
   },
-  "& h4": {
+  "& h6": {
     fontWeight: "700",
-    fontSize: "1.7rem",
+
+    "& img": {
+      height: "20px",
+      position: "relative",
+      top: "4px",
+      marginRight: "10px",
+    },
   },
-  "& img": {
+  "& div img": {
     borderRadius: "50%",
   },
   "@media (max-width: 998px)": {

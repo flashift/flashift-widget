@@ -98,8 +98,9 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
     <Grid sx={wrapperMain}>
       <CustomCard>
         <Grid sx={wrapperSwap}>
-          <Typography variant="h4" mb={4}>
-            Exchange Crypto
+          <Typography variant="h6" mb={4}>
+            <img src="/assets/images/logo.svg" alt="flashifttWidget" />
+            AI-driven , Best rate , lowest fees , Registration-free
           </Typography>
           <Grid>
             <Grid sx={wrapperSwapItem} mb={2}>
