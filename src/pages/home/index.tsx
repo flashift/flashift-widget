@@ -114,7 +114,7 @@ const Home = () => {
       dispatch(setFromValueData(search_amount));
     }
 
-    if (fromValueData && fromValueData !== "0" && Number(fromValueData) > 0) {
+    if (fromValueData && Number(fromValueData) > 0) {
       const params = {
         symbol_from: search_symbol_from
           ? search_symbol_from
@@ -146,7 +146,7 @@ const Home = () => {
               (item) =>
                 item?.name.toUpperCase() === coinData[1]?.network.toUpperCase()
             )?.[0]?.name,
-        amount: search_amount ? search_amount : fromValueData || "",
+        amount: fromValueData || search_amount || "",
       };
       axios
         .get(`${baseUrl}FullEstimatedExchangeAmount`, {
