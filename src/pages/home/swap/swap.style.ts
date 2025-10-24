@@ -8,10 +8,11 @@ export const wrapperMain: SxProps = {
   "& .swap_button": {
     width: "100px",
     marginLeft: "13px",
-    marginTop: "20px",
+    marginTop: "3.5px",
     borderRadius: "8px",
     fontSize: "1.35rem",
     fontWeight: "700",
+    height: "50px",
   },
   ".all_fees": {
     color: "#FF9800",
@@ -26,8 +27,7 @@ export const wrapperMain: SxProps = {
   },
   "@media (max-width: 998px)": {
     "& .swap_button": {
-      margin: "0 auto",
-      marginTop: "20px",
+      margin: "15px  auto 0 auto",
     },
   },
 };
@@ -70,7 +70,7 @@ export const wrapperIcons: SxProps = {
 
 export const wrapperSwapItem: SxProps = {
   border: "1px solid #ffffff",
-  padding: "10px 15px",
+  padding: "0 15px",
   position: "relative",
   borderRadius: "8px",
   flex: "1 0 40%",
@@ -87,7 +87,7 @@ export const wrapperSwapItem: SxProps = {
 export const wrapperChange: SxProps = {
   display: "flex",
   justifyContent: "center",
-  height: "76px",
+  height: "58px",
   "& img": {
     zIndex: 1,
     transform: "rotate(90deg)",
@@ -117,13 +117,14 @@ export const wrapperSwapInfo: SxProps = {
   },
   "&>div:first-of-type": {
     borderRadius: "8px",
-    padding: "10px",
+    padding: "5px 10px",
     position: "relative",
-    height: "59px",
+    height: "50px",
+    top: "4px",
     "&>svg": {
       position: "absolute",
       right: "10px",
-      top: "22px",
+      top: "17px",
     },
   },
   "@media (max-width: 520px)": {

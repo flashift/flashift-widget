@@ -119,8 +119,8 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                             : "./assets/images/coins/noPic.svg"
                         }
                         alt="flashift"
-                        width="42px"
-                        height="42px"
+                        width="35px"
+                        height="35px"
                       />
                       <img
                         alt="flashift"
@@ -138,7 +138,6 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                         width="20px"
                         height="20px"
                         className="netIcon"
-                        style={{ left: "28px" }}
                       />
                     </Grid>
                     <Grid sx={wrapperCoin}>
@@ -198,8 +197,8 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                             : "./assets/images/coins/noPic.svg"
                         }
                         alt="flashift"
-                        width="42px"
-                        height="42px"
+                        width="35px"
+                        height="35px"
                       />
                       <img
                         alt="flashift"
@@ -217,7 +216,6 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                         width="20px"
                         height="20px"
                         className="netIcon"
-                        style={{ left: "28px" }}
                       />
                     </Grid>
                     <Grid sx={wrapperCoin}>
