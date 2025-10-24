@@ -238,25 +238,26 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                   <ExpandMoreIcon />
                 </Grid>
                 <Grid sx={wrapperLoading}>
-                  <input
-                    value={
-                      exchangeResData?.exchangeRes &&
-                      ((fromValue && fromValue !== "0") ||
-                        (fromValueData && fromValueData !== "0")) &&
-                      !!exchangeResData?.exchangeRes?.max_amount &&
-                      exchangeResData?.exchangeRes?.max_amount !== "-1"
-                        ? exchangeResData?.exchangeRes?.data?.[0]?.amount.toFixed(
-                            5
-                          )
-                        : ""
-                    }
-                    type="text"
-                    readOnly
-                  />
-                  {loading && (
-                    <div>
-                      <div className="loader"></div>
-                    </div>
+                  {loading ? (
+                    <Grid className="loader">
+                      <img src="/assets/images/loading.svg" alt="flashift" />
+                    </Grid>
+                  ) : (
+                    <input
+                      value={
+                        exchangeResData?.exchangeRes &&
+                        ((fromValue && fromValue !== "0") ||
+                          (fromValueData && fromValueData !== "0")) &&
+                        !!exchangeResData?.exchangeRes?.max_amount &&
+                        exchangeResData?.exchangeRes?.max_amount !== "-1"
+                          ? exchangeResData?.exchangeRes?.data?.[0]?.amount.toFixed(
+                              5
+                            )
+                          : ""
+                      }
+                      type="text"
+                      readOnly
+                    />
                   )}
                 </Grid>
               </Grid>

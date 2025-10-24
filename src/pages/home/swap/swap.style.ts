@@ -145,10 +145,7 @@ export const wrapperCoin: SxProps = {
 };
 
 export const wrapperLoading: SxProps = {
-  "& .loader": {
-    border: "2px solid #f3f3f3",
-    borderTop: "2px solid #3498db",
-    borderRadius: "50%",
+  "& .loader img": {
     width: "30px",
     height: "30px",
     animation: "spin 0.8s linear infinite",
