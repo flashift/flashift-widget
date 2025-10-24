@@ -78,7 +78,7 @@ export const wrapperSwapItem: SxProps = {
     fontSize: "1.1rem",
     position: "absolute",
     top: "-13px",
-    background: "#1a2233",
+    background: "rgb(51, 61, 107)",
     padding: "0 5px",
   },
   "@media (max-width: 998px)": { flex: "1 0 100%", marginBottom: "0" },

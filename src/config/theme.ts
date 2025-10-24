@@ -12,8 +12,8 @@ export const palette = {
   errorColor: "#EF4444",
   errorTransparentColor: "#450A0A",
   bluecolor: {
-    50: "#1a2233",
-    100: "#2c3454",
+    50: "rgb(51, 61, 107)",
+    100: "rgba(60, 70, 119, 0.9)",
   },
 };
 
@@ -51,7 +51,7 @@ export const lightTheme = createTheme(
         }
         body {
           color: #ffffff;
-          background:#0a0d1c;
+          background:linear-gradient(270deg, rgb(34, 14, 67) 0%, rgb(34, 64, 119) 100%) rgb(34, 63, 118);
           min-height: 100vh;
           margin: 0;
         }
