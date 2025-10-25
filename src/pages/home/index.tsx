@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Layout from "../../components/layout";
 import useAppDispatch from "../../hooks/useDispatch";
@@ -17,8 +17,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { setFromValueData } from "../../redux/slices/coinFromValueSlice";
 import coins from "../../data/coinList.json";
 import { baseImageUrl } from "../../config/imageUrl";
-import { useMutation } from "@tanstack/react-query";
-import { priceService } from "../../services/price";
 
 const Home = () => {
   const location = useLocation();
@@ -31,12 +29,8 @@ const Home = () => {
   const { coinData } = useAppSelector((state) => state.coinSelect);
   const { netIconFrom } = useAppSelector((state) => state.netIcon);
   const { netIconTo } = useAppSelector((state) => state.netIcon);
-  const [price, setPrice] = useState<any>();
-  const activeRef = useRef(active);
 
-  const priceQuery = useMutation({
-    mutationFn: priceService,
-  });
+  const activeRef = useRef(active);
 
   const fromValueData = useAppSelector(
     (state) => state.coinFromValue.fromValue
@@ -64,33 +58,6 @@ const Home = () => {
       setActive(0);
       dispatch(setExchangeResData());
     }
-    priceQuery.mutate(coinData?.[0]?.uuid, {
-      onSuccess: (data) => {
-        const currentPrice = data?.data?.currentPrice;
-        if (typeof currentPrice === "string") {
-          const numericPrice = parseFloat(currentPrice);
-
-          if (!isNaN(numericPrice)) {
-            setPrice(numericPrice.toFixed(2));
-          } else {
-            console.error(
-              "Error: currentPrice cannot be converted to a valid number."
-            );
-          }
-        } else {
-          console.error("Error: currentPrice is not a string.");
-        }
-      },
-      onError: (error) => {
-        console.error("Error:", error);
-        const axiosError = error as AxiosError;
-        if (axiosError.response?.status === 403) {
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000);
-        }
-      },
-    });
   };
 
   useEffect(() => {
@@ -276,47 +243,6 @@ const Home = () => {
     };
   }, [debouncedFullExchange, swapDetail, startTimer]);
 
-  const handlePrice = useCallback(
-    debounce(() => {
-      if (fromValueData && Number(fromValueData) > 0) {
-        priceQuery.mutate(coinData?.[1]?.uuid, {
-          onSuccess: (data) => {
-            const currentPrice = data?.data?.currentPrice;
-            if (typeof currentPrice === "string") {
-              const numericPrice = parseFloat(currentPrice);
-              if (!isNaN(numericPrice)) {
-                setPrice(numericPrice.toFixed(2));
-              } else {
-                console.error(
-                  "Error: currentPrice cannot be converted to a valid number."
-                );
-              }
-            } else {
-              console.error("Error: currentPrice is not a string.");
-            }
-          },
-          onError: (error) => {
-            console.error("Error:", error);
-            const axiosError = error as AxiosError;
-            if (axiosError.response?.status === 403) {
-              setTimeout(() => {
-                window.location.reload();
-              }, 1000);
-            }
-          },
-        });
-      }
-    }, 700),
-    [fromValueData, priceQuery, coinData]
-  );
-
-  useEffect(() => {
-    handlePrice();
-    return () => {
-      handlePrice.cancel();
-    };
-  }, [fromValueData]);
-
   return (
     <Layout>
       <Swap
@@ -326,7 +252,6 @@ const Home = () => {
         setSwapDetail={setSwapDetail}
         setActive={setActive}
         timer={timer}
-        price={price}
       />
     </Layout>
   );

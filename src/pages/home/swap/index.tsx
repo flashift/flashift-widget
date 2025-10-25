@@ -33,7 +33,6 @@ interface IProps {
   handleChange: any;
   setActive: (active: number) => void;
   timer: any;
-  price: any;
 }
 
 const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
