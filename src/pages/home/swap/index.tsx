@@ -103,7 +103,7 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                 <Grid
                   sx={{
                     background: (theme) => theme?.palette?.secondary?.light,
-                    minWidth: "120px",
+                    minWidth: "160px",
                     cursor: "pointer",
                   }}
                   onClick={() => handleSwap()}
@@ -181,7 +181,7 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                 <Grid
                   sx={{
                     background: (theme) => theme?.palette?.secondary?.light,
-                    minWidth: "120px",
+                    minWidth: "160px",
                     cursor: "pointer",
                   }}
                   onClick={() => handleSwap()}
