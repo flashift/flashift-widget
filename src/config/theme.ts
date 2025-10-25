@@ -51,8 +51,6 @@ export const lightTheme = createTheme(
         }
         body {
           color: #ffffff;
-          background:linear-gradient(270deg, rgb(34, 14, 67) 0%, rgb(34, 64, 119) 100%) rgb(34, 63, 118);
-          min-height: 100vh;
           margin: 0;
         }
 

@@ -4,13 +4,12 @@ export const wrapperMain: SxProps = {
   display: "flex",
   justifyContent: "center",
   flexWrap: "wrap",
-  padding: "65px 10px",
   "& .swap_button": {
     width: "100px",
     marginLeft: "13px",
     marginTop: "3.5px",
     borderRadius: "8px",
-    fontSize: "1.35rem",
+    fontSize: "1.1rem",
     fontWeight: "700",
     height: "50px",
   },
@@ -25,16 +24,10 @@ export const wrapperMain: SxProps = {
     color: "rgba(255,255,255,0.4)",
     fontSize: "1.34rem",
   },
-  "@media (max-width: 998px)": {
-    "& .swap_button": {
-      margin: "15px  auto 0 auto",
-    },
-  },
 };
 
 export const wrapperSwap: SxProps = {
-  width: "950px",
-  maxWidth: "100%",
+  width: "100%",
   "&>div": {
     display: "flex",
   },
@@ -51,11 +44,6 @@ export const wrapperSwap: SxProps = {
   "& div img": {
     borderRadius: "50%",
   },
-  "@media (max-width: 998px)": {
-    "&>div": {
-      flexWrap: "wrap",
-    },
-  },
 };
 
 export const wrapperIcons: SxProps = {
@@ -70,7 +58,7 @@ export const wrapperIcons: SxProps = {
 
 export const wrapperSwapItem: SxProps = {
   border: "1px solid #ffffff",
-  padding: "0 15px",
+  padding: "0 5px",
   position: "relative",
   borderRadius: "8px",
   flex: "1 0 40%",
@@ -81,22 +69,19 @@ export const wrapperSwapItem: SxProps = {
     background: "rgb(51, 61, 107)",
     padding: "0 5px",
   },
-  "@media (max-width: 998px)": { flex: "1 0 100%", marginBottom: "0" },
+  "@media (max-width: 998px)": { marginBottom: "0" },
 };
 
 export const wrapperChange: SxProps = {
   display: "flex",
   justifyContent: "center",
   height: "58px",
+  "& button": {
+    margin: "0 20px",
+  },
   "& img": {
     zIndex: 1,
     transform: "rotate(90deg)",
-  },
-  "@media (max-width: 998px)": {
-    flex: "1 0 100%",
-    "& img": {
-      transform: "rotate(0deg)",
-    },
   },
 };
 
@@ -112,7 +97,7 @@ export const wrapperSwapInfo: SxProps = {
     color: "#ffffff",
     textAlign: "right",
     paddingTop: "10px",
-    fontSize: "23px",
+    fontSize: "19px",
     fontWeight: "700",
   },
   "&>div:first-of-type": {
@@ -151,8 +136,8 @@ export const wrapperLoading: SxProps = {
     height: "30px",
     animation: "spin 0.8s linear infinite",
     position: "absolute",
-    right: "20px",
-    top: "25px",
+    right: "15px",
+    top: "13px",
   },
 
   "@keyframes spin": {

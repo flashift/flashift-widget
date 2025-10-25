@@ -92,18 +92,18 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
     <Grid sx={wrapperMain}>
       <CustomCard>
         <Grid sx={wrapperSwap}>
-          <Typography variant="h6" mb={4}>
+          <Typography variant="h6" mb={2}>
             <img src="/assets/images/logo.svg" alt="flashifttWidget" />
             AI-driven , Best rate , lowest fees , Registration-free
           </Typography>
-          <Grid>
-            <Grid sx={wrapperSwapItem} mb={2}>
+          <Grid mb={1}>
+            <Grid sx={wrapperSwapItem}>
               <span>From</span>
               <Grid container sx={wrapperSwapInfo} gap={2}>
                 <Grid
                   sx={{
                     background: (theme) => theme?.palette?.secondary?.light,
-                    minWidth: "160px",
+                    minWidth: "120px",
                     cursor: "pointer",
                   }}
                   onClick={() => handleSwap()}
@@ -175,13 +175,13 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                 <img src="./assets/images/swap/change.svg" alt="flashift" />
               </IconButton>
             </Grid>
-            <Grid sx={wrapperSwapItem} mb={2}>
+            <Grid sx={wrapperSwapItem}>
               <span>To</span>
               <Grid container sx={wrapperSwapInfo} gap={2}>
                 <Grid
                   sx={{
                     background: (theme) => theme?.palette?.secondary?.light,
-                    minWidth: "160px",
+                    minWidth: "120px",
                     cursor: "pointer",
                   }}
                   onClick={() => handleSwap()}
