@@ -265,7 +265,7 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
               onClick={handleExchange}
               className="swap_button"
             >
-              Exchange
+              Swap
             </Button>
           </Grid>
           {!loading &&

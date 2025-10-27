@@ -24,6 +24,11 @@ export const wrapperMain: SxProps = {
     color: "rgba(255,255,255,0.4)",
     fontSize: "1.34rem",
   },
+  "@media (max-width: 520px)": {
+    "& .swap_button": {
+      marginTop: "23px",
+    },
+  },
 };
 
 export const wrapperSwap: SxProps = {
@@ -83,6 +88,12 @@ export const wrapperChange: SxProps = {
     zIndex: 1,
     transform: "rotate(90deg)",
   },
+  "@media (max-width: 520px)": {
+    "& button": {
+      position: "relative",
+      top: "25px",
+    },
+  },
 };
 
 export const wrapperSwapInfo: SxProps = {
@@ -114,6 +125,9 @@ export const wrapperSwapInfo: SxProps = {
   },
   "@media (max-width: 520px)": {
     display: "unset",
+    "&>div": {
+      minWidth: "auto",
+    },
     "& input": {
       textAlign: "left",
     },
