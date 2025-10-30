@@ -6,6 +6,10 @@
   font-display: swap;
 }
 
+html, body {
+  background: none transparent !important;
+}
+
 * {
   scrollbar-width: thin;
   scrollbar-color: #d3d3d3 transparent;
