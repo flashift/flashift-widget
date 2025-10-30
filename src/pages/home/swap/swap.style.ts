@@ -136,11 +136,6 @@ export const wrapperSwapInfo: SxProps = {
     position: "relative",
     height: "50px",
     top: "4px",
-    "&>svg": {
-      position: "absolute",
-      right: "10px",
-      top: "17px",
-    },
   },
   "@media (max-width: 520px)": {
     display: "unset",

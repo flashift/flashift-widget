@@ -2,7 +2,6 @@ import { Button, IconButton, Typography, useMediaQuery } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { useState, type FC } from "react";
 import CustomCard from "../../../components/card";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import net from "../../../data/network.json";
 import {
   wrapperChange,
@@ -154,7 +153,6 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <ExpandMoreIcon />
                 </Grid>
                 <Grid>
                   <input
@@ -232,7 +230,6 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                       </Typography>
                     </Grid>
                   </Grid>
-                  <ExpandMoreIcon />
                 </Grid>
                 <Grid sx={wrapperLoading}>
                   {loading ? (
