@@ -194,6 +194,7 @@ const Home = () => {
 
     if (search_amount) {
       dispatch(setFromValueData(search_amount));
+      setLoading(true);
     }
   }, [location.search, coins]);
 
