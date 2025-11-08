@@ -105,12 +105,11 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                 <Grid
                   sx={{
                     background: (theme) => theme?.palette?.secondary?.light,
-                    minWidth: "160px",
-                    cursor: "pointer",
+                    minWidth: "95px",
                   }}
                   onClick={() => handleSwap()}
                 >
-                  <Grid container pr={3}>
+                  <Grid container>
                     <Grid mr={1} style={{ position: "relative" }}>
                       <img
                         src={
@@ -182,12 +181,11 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                 <Grid
                   sx={{
                     background: (theme) => theme?.palette?.secondary?.light,
-                    minWidth: "160px",
-                    cursor: "pointer",
+                    minWidth: "95px",
                   }}
                   onClick={() => handleSwap()}
                 >
-                  <Grid container pr={3}>
+                  <Grid container>
                     <Grid mr={1} style={{ position: "relative" }}>
                       <img
                         src={
