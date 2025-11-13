@@ -79,7 +79,7 @@ export const wrapperSwapItem: SxProps = {
   padding: "0 5px",
   position: "relative",
   borderRadius: "8px",
-  flex: "1 0 40%",
+  flex: "1 0 auto",
   "& span": {
     fontSize: "1.1rem",
     position: "absolute",
@@ -137,6 +137,7 @@ export const wrapperSwapInfo: SxProps = {
     height: "50px",
     top: "4px",
   },
+
   "@media (max-width: 520px)": {
     display: "unset",
     "&>div": {
