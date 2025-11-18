@@ -225,7 +225,7 @@ const Home = () => {
       clearInterval(progressInterval);
       progressInterval = startTimer();
       debouncedFullExchange();
-    }, 60000);
+    }, 60 * 60 * 1000);
 
     if (!swapDetail) {
       debouncedFullExchange();
