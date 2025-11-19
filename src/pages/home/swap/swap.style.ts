@@ -24,9 +24,17 @@ export const wrapperMain: SxProps = {
     color: "rgba(255,255,255,0.4)",
     fontSize: "1.34rem",
   },
+  "@media (max-width: 980px)": {
+    "& .coin-box": {
+      flex: "1 0 auto",
+    },
+  },
   "@media (max-width: 520px)": {
     "& .swap_button": {
       marginTop: "23px",
+    },
+    "& .coin-box": {
+      width: "100%",
     },
   },
   "@media (max-width: 400px)": {
@@ -54,12 +62,16 @@ export const wrapperSwap: SxProps = {
   "& div img": {
     borderRadius: "50%",
   },
-  "@media (max-width: 400px)": {
+  "@media (max-width: 520px)": {
     "&>div": {
       flexWrap: "wrap",
       "&>div": {
         flex: "1 0 100%",
       },
+    },
+
+    ".toWrapper": {
+      marginTop: "-45px",
     },
   },
 };
@@ -102,14 +114,12 @@ export const wrapperChange: SxProps = {
     transform: "rotate(90deg)",
   },
   "@media (max-width: 520px)": {
+    position: "relative",
+    zIndex: "1",
+    top: "-50px",
     "& button": {
       position: "relative",
       top: "25px",
-    },
-  },
-  "@media (max-width: 400px)": {
-    "& button": {
-      top: "0",
       transform: "rotate(90deg)",
     },
   },

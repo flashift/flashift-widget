@@ -103,7 +103,9 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                   sx={{
                     background: (theme) => theme?.palette?.secondary?.light,
                     minWidth: "95px",
+                    width: "fit-content",
                   }}
+                  className="coin-box"
                   onClick={() => handleSwap()}
                 >
                   <Grid container>
@@ -172,14 +174,16 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                 <img src="./assets/images/swap/change.svg" alt="flashift" />
               </IconButton>
             </Grid>
-            <Grid sx={wrapperSwapItem}>
+            <Grid sx={wrapperSwapItem} className="toWrapper">
               <span>To</span>
               <Grid container sx={wrapperSwapInfo} gap={2}>
                 <Grid
                   sx={{
                     background: (theme) => theme?.palette?.secondary?.light,
                     minWidth: "95px",
+                    width: "fit-content",
                   }}
+                  className="coin-box"
                   onClick={() => handleSwap()}
                 >
                   <Grid container>
