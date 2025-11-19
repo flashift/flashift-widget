@@ -29,10 +29,8 @@ import { logSwapButtonClick } from "../../../analytics";
 interface IProps {
   loading: boolean;
   setLoading: (loading: boolean) => void;
-  setSwapDetail: (swapDetail: boolean) => void;
   handleChange: any;
   setActive: (active: number) => void;
-  timer: any;
 }
 
 const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
@@ -76,7 +74,6 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
   };
 
   const handleExchange = () => {
-    
     logSwapButtonClick();
 
     window.open(

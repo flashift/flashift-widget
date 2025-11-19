@@ -22,7 +22,6 @@ const Home = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [swapDetail, setSwapDetail] = useState(false);
   const [active, setActive] = useState<number>(0);
   const controllerRef = useRef<AbortController | null>(null);
   const dispatch = useAppDispatch();
@@ -35,7 +34,7 @@ const Home = () => {
   const fromValueData = useAppSelector(
     (state) => state.coinFromValue.fromValue
   );
-  const [timer, setTimer] = useState<number>(0);
+
   const handleChange = () => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("symbol_from", coinData[1]?.symbol);
@@ -198,20 +197,6 @@ const Home = () => {
     }
   }, [location.search, coins]);
 
-  const startTimer = useCallback(() => {
-    let currentProgress = 0;
-    setTimer(0);
-    const progressInterval = setInterval(() => {
-      currentProgress += 100 / 60;
-      setTimer(currentProgress);
-      if (currentProgress >= 100) {
-        clearInterval(progressInterval);
-      }
-    }, 1000);
-
-    return progressInterval;
-  }, []);
-
   const debouncedFullExchange = useCallback(
     debounce(() => {
       fullExchange();
@@ -220,29 +205,8 @@ const Home = () => {
   );
 
   useEffect(() => {
-    let progressInterval = startTimer();
-    const intervalId = setInterval(() => {
-      clearInterval(progressInterval);
-      progressInterval = startTimer();
-      debouncedFullExchange();
-    }, 60 * 60 * 1000);
-
-    if (!swapDetail) {
-      debouncedFullExchange();
-    } else {
-      clearInterval(intervalId);
-      setTimer(0);
-    }
-    return () => {
-      clearInterval(intervalId);
-      clearInterval(progressInterval);
-      setTimer(0);
-      if (controllerRef.current) {
-        controllerRef.current.abort();
-      }
-      debouncedFullExchange.cancel();
-    };
-  }, [debouncedFullExchange, swapDetail, startTimer]);
+    debouncedFullExchange();
+  }, [debouncedFullExchange]);
 
   return (
     <Layout>
@@ -250,9 +214,7 @@ const Home = () => {
         loading={loading}
         setLoading={setLoading}
         handleChange={handleChange}
-        setSwapDetail={setSwapDetail}
         setActive={setActive}
-        timer={timer}
       />
     </Layout>
   );
