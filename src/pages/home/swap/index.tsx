@@ -77,7 +77,7 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
     logSwapButtonClick();
 
     window.open(
-      `https://exchangev3.flashift.app/?symbol_to=${coinData[1]?.symbol}&network_to=${coinData[1]?.network}&symbol_from=${coinData[0]?.symbol}&network_from=${coinData[0]?.network}&amount=${fromValueData}
+      `https://exchange.flashift.app/?symbol_to=${coinData[1]?.symbol}&network_to=${coinData[1]?.network}&symbol_from=${coinData[0]?.symbol}&network_from=${coinData[0]?.network}&amount=${fromValueData}
 `,
       "_blank"
     );
