@@ -164,7 +164,6 @@ const Swap: FC<IProps> = ({ loading, setLoading, handleChange, setActive }) => {
                     autoComplete="off"
                     inputMode="decimal"
                     placeholder={isMobileActive ? "Enter an Amount" : ""}
-                    autoFocus
                   />
                 </Grid>
               </Grid>
